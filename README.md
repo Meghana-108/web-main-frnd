@@ -27,7 +27,7 @@ So when the program starts, the first thing created is the Global Execution Cont
 then another context i.e FEC will be pushed into the call stack similarly to any function call.when function is done with the work its poped out from the stack 
 and at the end GEC will be present which also will poped once the progrm ends.
 
-===============================================================================================================================================================================================================
+====================================================================================================================================================================
 js is synchronous single threaded lanaguage
 
 A thread is like a path of execution — it’s how the computer runs your code, line by line.
@@ -37,8 +37,23 @@ So if JS is doing one task, it cannot do another at the same moment.
 syncronous means it follows a particular order
 “Synchronous” means JavaScript executes code in the order it appears,
 and each line waits for the previous one to finish before running.
-===============================================================================================================================================================================================================
+====================================================================================================================================================================
 wht happens when u run a js progrm behind the scene
 see as soon as the progrm is runned the global exceution phase will be tehre which holds memory and code 
 this exceution phase has 2 phases i.e creation phase (memory creation pahse-criticalpahse) next is code excecution phase)
 
+====================================================================================================================================================================
+What is Hoisting?
+👉 Hoisting means JavaScript moves declarations (not initializations) to the top of their scope before the code actually runs.
+In simple words:
+You can use variables or functions before you actually write them in your code — because JavaScript sets them up in memory first.
+
+Why does this happen?
+Because when JavaScript runs your code, it does it in two phases inside the Execution Context:
+🩵 1. Memory Creation Phase:
+JS scans your code and allocates memory for all variables and functions.
+Variables are stored as undefined initially.
+Functions are fully stored in memory.
+💚 2. Code Execution Phase:
+JS executes your code line by line.
+Now it assigns real values to variables and runs the functions.
