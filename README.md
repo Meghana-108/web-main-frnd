@@ -21,7 +21,7 @@ So when the program starts, the first thing created is the Global Execution Cont
 | Part                                  | Description                                                        | Example                           |
 | ------------------------------------- | ------------------------------------------------------------------ | --------------------------------- |
 | 🗂️ **Memory (Variable Environment)** | Where all variables and functions are stored as *key-value pairs*. | `a → undefined`, `add → function` |
-| ⚡ **Code (Thread of Execution)**      | Where the code runs line by line.                                  | executes `a = 10`, calls `add()`  |
+| ⚡ **Code (Thread of Execution)**    | Where the code runs line by line.                                  | executes `a = 10`, calls `add()`  |
 
 =>see when we run js code the GEC is pushed into the call stack or exceutable stack n inside trhe code if any function call is there 
 then another context i.e FEC will be pushed into the call stack similarly to any function call.when function is done with the work its poped out from the stack 
@@ -57,3 +57,5 @@ Functions are fully stored in memory.
 💚 2. Code Execution Phase:
 JS executes your code line by line.
 Now it assigns real values to variables and runs the functions.
+
+
