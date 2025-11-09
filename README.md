@@ -58,4 +58,96 @@ Functions are fully stored in memory.
 JS executes your code line by line.
 Now it assigns real values to variables and runs the functions.
 
+====================================================================================================================================================================
+1. How JavaScript Runs in the Browser
 
+When you open a webpage in Chrome, Edge, or Firefox, each browser has a JavaScript engine inside it (like Chrome → V8 Engine).
+When JS code runs:
+The browser gives an environment to run the JS — this is called the Global Environment.
+The JS Engine creates the Global Execution Context (GEC).
+The GEC is linked to a big global object.
+In browsers, that global object is called window.
+In Node.js, it’s called global
+
+🌐 2. The Window Object — The “Global King”
+When JS starts in the browser, it automatically creates a window object.
+The window object:
+represents the global scope.
+contains everything in the browser — variables, functions, and also browser features like:
+alert()
+setTimeout()
+document (to access HTML)
+location (URL info)
+and more.
+
+example 1:
+console.log(window);
+✅ This prints a huge object in your browser console with many properties and functions.
+
+example 2:
+var name = "Meghana";
+console.log(window.name);
+✅ Output:
+Meghana
+
+3. The Global Execution Context (GEC)
+When your JS file starts running:
+The engine creates a Global Execution Context.
+This GEC has:
+A Memory Component (also called the Variable Environment)
+A Thread of Execution (where code runs line by line)
+In the browser:
+The global object (window) is created first.
+The this keyword at the global level points to window.
+
+example:
+console.log(this === window);
+true
+
+4)The Call Stack
+
+Whenever you call a function, JS creates a new Execution Context for it.
+All execution contexts are managed using a Call Stack (like plates stacked on top of each other 🍽️).
+
+example :
+function first() {
+  console.log("First");
+  second();
+}
+
+function second() {
+  console.log("Second");
+}
+first();
+
+Behind the scenes:
+JS creates Global Execution Context (GEC) → pushed to the call stack
+Calls first() → new Function Execution Context → pushed
+Calls second() → another Function Execution Context → pushed
+second() finishes → popped out
+first() finishes → popped out
+Finally, the Global Execution Context is popped off when the program ends
+===================================================================================================================================================================
+What is undefined?
+👉 undefined means:
+The variable exists in memory, but no value has been assigned to it yet
+JavaScript knows the variable, but doesn’t know its value.
+
+What is not defined?
+👉 not defined means:
+The variable was never declared in the code at all.
+
+TRICKY INTERVIEW QUESTION
+example 1:
+console.log(x);
+var x = 5;
+output:undefined
+
+typeof
+example 2:
+The typeof operator never throws an error, even for undeclared variables.
+var a;
+console.log(typeof a); // undefined
+console.log(typeof b); // undefined (even though b not declared)
+
+<img width="1174" height="659" alt="image" src="https://github.com/user-attachments/assets/7ac0eacb-9841-4e67-b845-a3e39ef05e6f" />
