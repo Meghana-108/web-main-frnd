@@ -151,3 +151,134 @@ console.log(typeof a); // undefined
 console.log(typeof b); // undefined (even though b not declared)
 
 <img width="1174" height="659" alt="image" src="https://github.com/user-attachments/assets/7ac0eacb-9841-4e67-b845-a3e39ef05e6f" />
+
+===================================================================================================================================================================
+Background — What’s the Problem with var?
+Before ES6 (2015), JavaScript only had var.
+Example:
+
+console.log(a); // undefined
+var a = 10;
+Even though we’re accessing a before it’s declared, we don’t get an error — we get undefined.
+That’s because var is hoisted and initialized to undefined during the creation phase of the execution context.
+
+ES6 Introduced let and const
+
+To make things safer and more predictable, ES6 introduced:
+let → for block-scoped, reassignable variables
+const → for block-scoped, non-reassignable variables
+But both of these come with a new concept:
+Temporal Dead Zone (TDZ)
+
+
+What is Temporal Dead Zone?
+
+TDZ is the time between:
+the start of the scope (when the variable is known to exist)
+and the moment it’s actually declared in your code.
+"In general its the time between the variable declared in the memory till the varible being initialized"
+During this time, you cannot access the variable — if you try, you’ll get a ReferenceError.
+
+example(same for both let and const):
+When the JS engine executes your code:
+It creates a memory space for all variables (hoisting).
+For var, it sets the value to undefined immediately.
+For let and const, it does not initialize them yet → they stay in TDZ.
+Only after the line let x = 5; is executed does the variable become initialized.
+{
+  // TDZ starts for x
+  console.log(x); // ❌ ReferenceError
+  let x = 5;      // TDZ ends here
+  console.log(x); // ✅ 5
+}
+"before the initialization of variable (let and const)u cant print it,it will throw u refernce errorin js if itslet or const
+if its var then it will give u undefined
+and if the variable is not at all defined then it will throw u refernce errror :not-defined
+like the let and const variable will be stored in script area and the var will get stored in global area"
+
+===========================================================================================================
+1. What Happens When JavaScript Code Runs
+When JS executes your code, it creates an Execution Context (we’ve seen this before).
+Each Execution Context has two main parts:
+
+1️⃣ Memory Component (Variable Environment + Lexical Environment)
+2️⃣ Code Component (Thread of Execution)
+Now, within the Global Execution Context (GEC) — which is created when your program starts — the JS engine allocates memory differently for var, let, and const.
+
+2. Memory Creation Phase (Before Execution Starts)
+
+When the JS engine parses your code, it creates a Global Object (like window in browsers) and a Global Memory Space.
+It allocates memory for all declared variables before running any line.
+Here’s the key difference 👇
+| Type            | Memory Location                            | Initialization        | Accessible before Declaration |
+| --------------- | ------------------------------------------ | --------------------- | ----------------------------- |
+| `var`           | **Global / Variable Object (VO)**          | `undefined`           | ✅ Yes                         |
+| `let` & `const` | **Script / Block Scope (Separate memory)** | *Uninitialized* (TDZ) | ❌ No                          |
+
+
+3. How It Looks Visually
+var a = 10;
+let b = 20;
+const c = 30;
+During Memory Creation Phase:
+| Variable | Memory Location            | Value           | Status       |
+| -------- | -------------------------- | --------------- | ------------ |
+| `a`      | Global Object (`window.a`) | `undefined`     | ✅ accessible |
+| `b`      | Script Scope               | *uninitialized* | 🚫 TDZ       |
+| `c`      | Script Scope               | *uninitialized* | 🚫 TDZ       |
+
+During Execution Phase (line-by-line):
+var a = 10 → a is updated to 10.
+let b = 20 → b is initialized and updated to 20.
+const c = 30 → c is initialized and set to 30 (can’t be changed later).
+
+"Var will be stored in the global object(windows) and the let and const will in script area"
+
+GLOBAL EXECUTION CONTEXT
+------------------------------------
+Memory Space (Environment Record)
+| window (global object)
+| var → stored in window (undefined initially)
+| let → stored in script record (uninitialized → TDZ)
+| const → stored in script record (uninitialized → TDZ)
+
+Execution Thread (Code)
+| Executes line by line
+| Initializes let/const when their line is reached
+------------------------------------
+
+===================================================================================================================================================================
+Var, Let & Const
+
+| Feature                 | `var`         | `let`   | `const` |
+| ----------------------- | ------------- | ------- | ------- |
+| Scope                   | Function      | Block   | Block   |
+| Hoisted                 | ✅ (undefined) | ✅ (TDZ) | ✅ (TDZ) |
+| TDZ                     | ❌ No          | ✅ Yes   | ✅ Yes   |
+| Redeclaration           | ✅ Yes         | ❌ No    | ❌ No    |
+| Reassignment            | ✅ Yes         | ✅ Yes   | ❌ No    |
+| Initialization required | ❌ No          | ❌ No    | ✅ Yes   |
+| Added to `window`       | ✅ Yes         | ❌ No    | ❌ No    |
+
+// Hoisting test
+console.log(a); // undefined
+// console.log(b); // ReferenceError
+// console.log(c); // ReferenceError
+
+var a = 10;
+// Redeclaration
+var a = 40; // ✅
+console.log(a); // 40
+
+let b = 20;
+// let b = 50; ❌ SyntaxError (redeclared)
+b = 50; // ✅ reassignment allowed
+console.log(b); // 50
+
+const c = 30;
+// c = 60; ❌ TypeError (cannot reassign const)
+
+const a;
+a=10;//Syntax error:missing initializer in const declaration
+
+===================================================================================================================================================================
