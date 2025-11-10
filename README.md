@@ -27,7 +27,7 @@ So when the program starts, the first thing created is the Global Execution Cont
 then another context i.e FEC will be pushed into the call stack similarly to any function call.when function is done with the work its poped out from the stack 
 and at the end GEC will be present which also will poped once the progrm ends.
 
-====================================================================================================================================================================
+=========================================================================================================================
 js is synchronous single threaded lanaguage
 
 A thread is like a path of execution — it’s how the computer runs your code, line by line.
@@ -37,12 +37,12 @@ So if JS is doing one task, it cannot do another at the same moment.
 syncronous means it follows a particular order
 “Synchronous” means JavaScript executes code in the order it appears,
 and each line waits for the previous one to finish before running.
-====================================================================================================================================================================
+=============================================================================================================================
 wht happens when u run a js progrm behind the scene
 see as soon as the progrm is runned the global exceution phase will be tehre which holds memory and code 
 this exceution phase has 2 phases i.e creation phase (memory creation pahse-criticalpahse) next is code excecution phase)
 
-====================================================================================================================================================================
+==============================================================================================================================
 What is Hoisting?
 👉 Hoisting means JavaScript moves declarations (not initializations) to the top of their scope before the code actually runs.
 In simple words:
@@ -58,7 +58,7 @@ Functions are fully stored in memory.
 JS executes your code line by line.
 Now it assigns real values to variables and runs the functions.
 
-====================================================================================================================================================================
+=================================================================================================================================
 1. How JavaScript Runs in the Browser
 
 When you open a webpage in Chrome, Edge, or Firefox, each browser has a JavaScript engine inside it (like Chrome → V8 Engine).
@@ -127,7 +127,7 @@ Calls second() → another Function Execution Context → pushed
 second() finishes → popped out
 first() finishes → popped out
 Finally, the Global Execution Context is popped off when the program ends
-===================================================================================================================================================================
+================================================================================================
 What is undefined?
 👉 undefined means:
 The variable exists in memory, but no value has been assigned to it yet
@@ -152,7 +152,7 @@ console.log(typeof b); // undefined (even though b not declared)
 
 <img width="1174" height="659" alt="image" src="https://github.com/user-attachments/assets/7ac0eacb-9841-4e67-b845-a3e39ef05e6f" />
 
-===================================================================================================================================================================
+===============================================================================================================
 Background — What’s the Problem with var?
 Before ES6 (2015), JavaScript only had var.
 Example:
