@@ -282,3 +282,53 @@ const a;
 a=10;//Syntax error:missing initializer in const declaration
 
 ===================================================================================================================================================================
+1. What is a Block?
+In JavaScript, a block is anything inside curly braces {}.
+
+2. What is Block Scope?
+➡️ Block scope means that variables declared inside {} using let or const
+are accessible only inside that block — not outside it.
+
+{
+  let a = 10;
+  const b = 20;
+  var c = 30;
+}
+console.log(c); // ✅ 30 (var is NOT block scoped)
+console.log(a); // ❌ ReferenceError
+console.log(b); // ❌ ReferenceError
+
+✅ var is function-scoped (or global if outside a function).
+❌ let and const are block-scoped
+
+3. Nested Scopes & Scope Chain
+Variables in inner blocks can access variables from outer blocks,
+but not the other way around.
+
+let x = 10;
+{
+  let y = 20;
+  console.log(x); // ✅ can access outer variable
+  console.log(y); // ✅ 20
+}
+console.log(y); // ❌ ReferenceError
+✅ This is because of Lexical Scoping (the inner scope has access to outer scope).
+
+SHADOWING
+
+block shadowing
+var a=100
+let b=200;
+const c=300;
+{
+  var a=10;
+  let b = 20;
+  const c=30;
+  console.log(a); //10
+  console.log(b);// 20 (inner b)
+  console.log(c);// 30
+  
+}
+console.log(a); // 10
+console.log(b); // 200
+console.log(c); //300
