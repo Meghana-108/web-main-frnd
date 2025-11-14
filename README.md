@@ -332,3 +332,17 @@ const c=300;
 console.log(a); // 10
 console.log(b); // 200
 console.log(c); //300
+
+
+illegal shadowing
+->u cannot shadow let usign var
+let a=20;
+{
+var a=20;//syntaxerror:a is already declared
+} //this cannot be doen let cannot be shadowed using var,it can only be done by let only
+but we can shadow a var using let
+
+var a=20;
+{
+let a=20;
+}//this can be sone
