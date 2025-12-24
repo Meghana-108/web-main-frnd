@@ -1,0 +1,41 @@
+USAGE OF SETINTERVAL
+1.
+const tim=()=>{
+  let time=new Date().toLocaleTimeString();
+  console.log(time);
+  }
+setInterval(tim,1000);
+//OUTPUT
+timing per seconds
+
+2.
+let num=0;
+const dummy=()=>{
+  num++;
+  console.log(num);
+  if(num>=3)
+    {
+    clearInterval(meow);
+    }
+  }
+const meow=setInterval(dummy,1000);
+//OUTPUT
+1
+2
+3
+======================================================================================================================
+USAGE OF SETTIMOUT
+console.log("hello");
+const greet=()=>{
+    console.log("hello megha");
+}
+setTimeout(greet,5000);
+setTimeout(()=>{
+    console.log("hello arjun");
+},2000)
+console.log("hello nishanth");
+//OUTPUT
+hello
+hello nishanth
+hello arjun
+hello megha
