@@ -95,3 +95,47 @@ console.log(result);
 //OUTPUT
 120
 =================================================================================================
+USAGE OF FILTER FUNCTION(creates new array)
+
+const arr=[8,21,6,3,22,34];
+console.log(arr);
+const age=arr.filter((a)=>
+{
+return a!==34;
+})
+console.log(age);
+//OUTPUT
+[ 8, 21, 6, 3, 22, 34 ]
+[ 8, 21, 6, 3, 22 ]
+
+=========================================================================================
+USAGE OF MAP FUNCTION
+
+const arr=[1,2,3,4,5];
+console.log(arr);
+const result=arr.map((a)=>a*10);
+console.log(result);
+//OUTPUT 
+[ 1, 2, 3, 4, 5 ]
+[ 10, 20, 30, 40, 50 ]
+
+
+const arr=[
+    {name:"tina",country:"australia"},
+    {name:"mina",country:"canada"},
+    {name:"dica",country:"russia"}]
+const result=arr.map((user)=>user.country=="canada"?user.name:"meow");
+console.log(result)
+//OUTPUT
+[ 'meow', 'mina', 'meow' ]
+
+
+const arr=[
+    {name:"tina",country:"australia"},
+    {name:"mina",country:"canada"},
+    {name:"dica",country:"russia"}]
+const result=arr.map((user,index)=>index!==1?user.name:"index-no-one");
+console.log(result)
+//OUTPUT
+[ 'tina', 'index-no-one', 'dica' ]
+
