@@ -39,3 +39,59 @@ hello
 hello nishanth
 hello arjun
 hello megha
+
+===========================================================================================================
+USAGE OF REDUCE FUNSTION
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+1.
+const marks=[80,100,120,140];
+
+const result=marks.reduce((total,currnum)=>{
+    console.log(total+" and "+currnum);
+    return total+currnum;
+},0)
+console.log(result);
+//OUTPUT
+0 and 80
+80 and 100
+180 and 120
+300 and 140
+440
+
+const result=marks.reduce((total,currnum)=>{
+    console.log(total+" and "+currnum);
+    return total+currnum;
+})
+console.log(result);
+//OUTPUT
+80 and 100
+180 and 120
+300 and 140
+
+
+const result=marks.reduce((total,currnum)=>total+currnum);
+console.log(result);
+// OUTPUT
+440
+
+const marks=[80,100,120,140];
+let sum=0;
+for(const i of marks)
+{
+    sum+=i;
+}
+console.log(sum);//440
+
+2.
+const cart=[
+    {name:"megha",price:20},
+    {name:"shardha",price:40},
+    {name:"shreya",price:60}];
+
+const result=cart.reduce((total,currval)=>total+currval.price,0);
+console.log(result);
+//OUTPUT
+120
+=================================================================================================
