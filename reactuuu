@@ -154,3 +154,224 @@ arr.forEach((value,index)=>
 2:3
 3:4
 4:5
+=========================================================================================================================
+CALLBACK
+1️⃣ First: What does Synchronous mean? (Very basic)
+👉 Synchronous = step by step, wait for each line to finish
+Example:
+let a = 10;
+let b = 20;
+let c = a + b;
+console.log(c);
+Here:
+Like 1 finishes → go to line 2
+Line 2 finishes → go to line 3
+Line 3 finishes → go to line 4
+JS waits for each line.
+
+2️⃣ What does Asynchronous mean? (Real-life analogy)
+👉 Asynchronous = don’t wait, do it later
+Example from real life:
+You order food 🍔
+Instead of standing at the counter, you sit down
+When food is ready, they call you
+That “call you later” idea = asynchronous
+
+3️⃣ Now apply this to JavaScript
+JavaScript itself is:
+Synchronous + Single-threaded
+BUT…
+Some operations take time:
+setTimeout
+Fetching data from database
+API calls
+
+JS says:
+“I won’t wait for these. I’ll continue running other code.”
+These are asynchronous operations.
+
+4️⃣ Your Code — What You EXPECTED
+You wrote:
+const student = getdata();
+console.log(student);
+
+You expected:
+getdata() waits 2 seconds
+Data comes back
+student gets the value
+
+👉 This is synchronous thinking
+
+5️⃣ What ACTUALLY happened (VERY IMPORTANT)
+
+Let’s see your function:
+
+function getdata() {
+  setTimeout(() => {
+    return { name: "bob", age: 12 };
+  }, 2000);
+}
+
+Key truth:
+❌ setTimeout does NOT stop the function
+JS does this instead:
+Start timer (2 seconds)
+Immediately exit getdata()
+Return undefine
+So:
+const student = undefined;
+Because:
+👉 The data is not ready yet
+This is called:
+❌ Trying to use asynchronous data synchronously
+
+6️⃣ WHY return FAILED (This is the core confusion)
+
+This line:
+return { name: "bob", age: 12 };
+🚨 It is inside the callback function, NOT inside getdata().
+
+Think like this:
+
+function getdata() {
+  // starts timer
+  // exits immediately
+}
+The return is like shouting an answer after the teacher already left the room.
+
+So the value is:
+Returned to nobody
+Lost forever
+
+==================================================================================================================
+PROMISES
+
+1️⃣ Why Promises were invented (VERY IMPORTANT)
+Problem with callbacks 😵
+getData(function (data) {
+  processData(data, function (processed) {
+    saveData(processed, function () {
+      console.log("Done");
+    });
+  });
+});
+
+❌ Problems:
+Code goes right → right → right
+Hard to read
+Hard to debug
+Error handling is messy
+This is called Callback Hell.
+
+📌 Promises were created to FIX this
+
+2️⃣ What is a Promise? (Human language)
+A Promise is an object that represents a value
+that will be available in the future
+Real-life analogy 💡
+👉 You order food
+👉 You get a token
+👉 Token promises: “You WILL get food”
+That token = Promise
+
+3️⃣ Promise has 3 states
+State	Meaning
+| State     | Meaning           |
+| --------- | ----------------- |
+| pending   | work not finished |
+| fulfilled | work successful   |
+| rejected  | work failed       |
+
+4️⃣ Creating a Promise (SLOW)
+const promise = new Promise(function (resolve, reject) {
+  // async work
+});
+
+
+resolve() → success
+reject() → failure
+
+5️⃣ Real Example (Same as callback example)
+❌ Callback version (old)
+function getData(callback) {
+  setTimeout(() => {
+    callback("Student Data");
+  }, 2000);
+}
+
+✅ Promise version (modern)
+function getData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Student Data");
+    }, 2000);
+  });
+}
+
+
+📌 Notice:
+No callback argument
+Promise returns a value later
+
+6️⃣ How to USE a Promise (.then())
+getData().then((data) => {
+  console.log(data);
+});
+
+👉 .then() =
+“When promise is successful, run this”
+
+7️⃣ Internal flow (BEHIND THE SCENES)
+getData().then(console.log);
+
+Step-by-step:
+getData() runs → Promise created
+setTimeout goes to Web API
+Promise is pending
+After 2s → resolve() called
+Promise becomes fulfilled
+.then() callback goes to Microtask Queue
+Event Loop pushes it to Call Stack
+Code executes
+
+📌 Microtask Queue has higher priority than callback queue.
+
+8️⃣ Handling errors (.catch())
+getData()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+ 
+👉 Cleaner than callbacks ✔️
+
+9️⃣ Reject example
+function getData() {
+  return new Promise((resolve, reject) => {
+    let success = false;
+
+    setTimeout(() => {
+      if (success) {
+        resolve("Data received");
+      } else {
+        reject("Error occurred");
+      }
+    }, 2000);
+  });
+}
+
+🔟 Promise chaining (IMPORTANT)
+getData()
+  .then((data) => {
+    console.log(data);
+    return "Processed Data";
+  })
+  .then((processed) => {
+    console.log(processed);
+  });
+👉 Each .then() gets previous result
+
+1️⃣1️⃣ One-line interview definitio
+A Promise is an object that represents the eventual completion or failure of an asynchronous operation.
