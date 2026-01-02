@@ -375,3 +375,6 @@ getData()
 
 1️⃣1️⃣ One-line interview definitio
 A Promise is an object that represents the eventual completion or failure of an asynchronous operation.
+=================================================================================================================================================================
+REACT
+=>our chrome browser wont understand the jsx so babel converst the jsx to normal vanila javascript code which our chrome browser will undersatnd
