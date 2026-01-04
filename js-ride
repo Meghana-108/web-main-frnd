@@ -1,0 +1,380 @@
+USAGE OF SETINTERVAL
+1.
+const tim=()=>{
+  let time=new Date().toLocaleTimeString();
+  console.log(time);
+  }
+setInterval(tim,1000);
+//OUTPUT
+timing per seconds
+
+2.
+let num=0;
+const dummy=()=>{
+  num++;
+  console.log(num);
+  if(num>=3)
+    {
+    clearInterval(meow);
+    }
+  }
+const meow=setInterval(dummy,1000);
+//OUTPUT
+1
+2
+3
+======================================================================================================================
+USAGE OF SETTIMOUT
+console.log("hello");
+const greet=()=>{
+    console.log("hello megha");
+}
+setTimeout(greet,5000);
+setTimeout(()=>{
+    console.log("hello arjun");
+},2000)
+console.log("hello nishanth");
+//OUTPUT
+hello
+hello nishanth
+hello arjun
+hello megha
+
+===========================================================================================================
+USAGE OF REDUCE FUNSTION
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+1.
+const marks=[80,100,120,140];
+
+const result=marks.reduce((total,currnum)=>{
+    console.log(total+" and "+currnum);
+    return total+currnum;
+},0)
+console.log(result);
+//OUTPUT
+0 and 80
+80 and 100
+180 and 120
+300 and 140
+440
+
+const result=marks.reduce((total,currnum)=>{
+    console.log(total+" and "+currnum);
+    return total+currnum;
+})
+console.log(result);
+//OUTPUT
+80 and 100
+180 and 120
+300 and 140
+
+
+const result=marks.reduce((total,currnum)=>total+currnum);
+console.log(result);
+// OUTPUT
+440
+
+const marks=[80,100,120,140];
+let sum=0;
+for(const i of marks)
+{
+    sum+=i;
+}
+console.log(sum);//440
+
+2.
+const cart=[
+    {name:"megha",price:20},
+    {name:"shardha",price:40},
+    {name:"shreya",price:60}];
+
+const result=cart.reduce((total,currval)=>total+currval.price,0);
+console.log(result);
+//OUTPUT
+120
+=================================================================================================
+USAGE OF FILTER FUNCTION(creates new array)
+
+const arr=[8,21,6,3,22,34];
+console.log(arr);
+const age=arr.filter((a)=>
+{
+return a!==34;
+})
+console.log(age);
+//OUTPUT
+[ 8, 21, 6, 3, 22, 34 ]
+[ 8, 21, 6, 3, 22 ]
+
+=========================================================================================
+USAGE OF MAP FUNCTION
+
+const arr=[1,2,3,4,5];
+console.log(arr);
+const result=arr.map((a)=>a*10);
+console.log(result);
+//OUTPUT 
+[ 1, 2, 3, 4, 5 ]
+[ 10, 20, 30, 40, 50 ]
+
+
+const arr=[
+    {name:"tina",country:"australia"},
+    {name:"mina",country:"canada"},
+    {name:"dica",country:"russia"}]
+const result=arr.map((user)=>user.country=="canada"?user.name:"meow");
+console.log(result)
+//OUTPUT
+[ 'meow', 'mina', 'meow' ]
+
+
+const arr=[
+    {name:"tina",country:"australia"},
+    {name:"mina",country:"canada"},
+    {name:"dica",country:"russia"}]
+const result=arr.map((user,index)=>index!==1?user.name:"index-no-one");
+console.log(result)
+//OUTPUT
+[ 'tina', 'index-no-one', 'dica' ]
+
+====================================================================================
+USAGE OF FOREACH
+
+const arr=[1,2,3,4,5];
+arr.forEach((value,index)=>
+{
+    console.log(index+":"+value)
+}
+)
+//OUTPUT
+0:1
+1:2
+2:3
+3:4
+4:5
+=========================================================================================================================
+CALLBACK
+1️⃣ First: What does Synchronous mean? (Very basic)
+👉 Synchronous = step by step, wait for each line to finish
+Example:
+let a = 10;
+let b = 20;
+let c = a + b;
+console.log(c);
+Here:
+Like 1 finishes → go to line 2
+Line 2 finishes → go to line 3
+Line 3 finishes → go to line 4
+JS waits for each line.
+
+2️⃣ What does Asynchronous mean? (Real-life analogy)
+👉 Asynchronous = don’t wait, do it later
+Example from real life:
+You order food 🍔
+Instead of standing at the counter, you sit down
+When food is ready, they call you
+That “call you later” idea = asynchronous
+
+3️⃣ Now apply this to JavaScript
+JavaScript itself is:
+Synchronous + Single-threaded
+BUT…
+Some operations take time:
+setTimeout
+Fetching data from database
+API calls
+
+JS says:
+“I won’t wait for these. I’ll continue running other code.”
+These are asynchronous operations.
+
+4️⃣ Your Code — What You EXPECTED
+You wrote:
+const student = getdata();
+console.log(student);
+
+You expected:
+getdata() waits 2 seconds
+Data comes back
+student gets the value
+
+👉 This is synchronous thinking
+
+5️⃣ What ACTUALLY happened (VERY IMPORTANT)
+
+Let’s see your function:
+
+function getdata() {
+  setTimeout(() => {
+    return { name: "bob", age: 12 };
+  }, 2000);
+}
+
+Key truth:
+❌ setTimeout does NOT stop the function
+JS does this instead:
+Start timer (2 seconds)
+Immediately exit getdata()
+Return undefine
+So:
+const student = undefined;
+Because:
+👉 The data is not ready yet
+This is called:
+❌ Trying to use asynchronous data synchronously
+
+6️⃣ WHY return FAILED (This is the core confusion)
+
+This line:
+return { name: "bob", age: 12 };
+🚨 It is inside the callback function, NOT inside getdata().
+
+Think like this:
+
+function getdata() {
+  // starts timer
+  // exits immediately
+}
+The return is like shouting an answer after the teacher already left the room.
+
+So the value is:
+Returned to nobody
+Lost forever
+
+==================================================================================================================
+PROMISES
+
+1️⃣ Why Promises were invented (VERY IMPORTANT)
+Problem with callbacks 😵
+getData(function (data) {
+  processData(data, function (processed) {
+    saveData(processed, function () {
+      console.log("Done");
+    });
+  });
+});
+
+❌ Problems:
+Code goes right → right → right
+Hard to read
+Hard to debug
+Error handling is messy
+This is called Callback Hell.
+
+📌 Promises were created to FIX this
+
+2️⃣ What is a Promise? (Human language)
+A Promise is an object that represents a value
+that will be available in the future
+Real-life analogy 💡
+👉 You order food
+👉 You get a token
+👉 Token promises: “You WILL get food”
+That token = Promise
+
+3️⃣ Promise has 3 states
+State	Meaning
+| State     | Meaning           |
+| --------- | ----------------- |
+| pending   | work not finished |
+| fulfilled | work successful   |
+| rejected  | work failed       |
+
+4️⃣ Creating a Promise (SLOW)
+const promise = new Promise(function (resolve, reject) {
+  // async work
+});
+
+
+resolve() → success
+reject() → failure
+
+5️⃣ Real Example (Same as callback example)
+❌ Callback version (old)
+function getData(callback) {
+  setTimeout(() => {
+    callback("Student Data");
+  }, 2000);
+}
+
+✅ Promise version (modern)
+function getData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Student Data");
+    }, 2000);
+  });
+}
+
+
+📌 Notice:
+No callback argument
+Promise returns a value later
+
+6️⃣ How to USE a Promise (.then())
+getData().then((data) => {
+  console.log(data);
+});
+
+👉 .then() =
+“When promise is successful, run this”
+
+7️⃣ Internal flow (BEHIND THE SCENES)
+getData().then(console.log);
+
+Step-by-step:
+getData() runs → Promise created
+setTimeout goes to Web API
+Promise is pending
+After 2s → resolve() called
+Promise becomes fulfilled
+.then() callback goes to Microtask Queue
+Event Loop pushes it to Call Stack
+Code executes
+
+📌 Microtask Queue has higher priority than callback queue.
+
+8️⃣ Handling errors (.catch())
+getData()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+ 
+👉 Cleaner than callbacks ✔️
+
+9️⃣ Reject example
+function getData() {
+  return new Promise((resolve, reject) => {
+    let success = false;
+
+    setTimeout(() => {
+      if (success) {
+        resolve("Data received");
+      } else {
+        reject("Error occurred");
+      }
+    }, 2000);
+  });
+}
+
+🔟 Promise chaining (IMPORTANT)
+getData()
+  .then((data) => {
+    console.log(data);
+    return "Processed Data";
+  })
+  .then((processed) => {
+    console.log(processed);
+  });
+👉 Each .then() gets previous result
+
+1️⃣1️⃣ One-line interview definitio
+A Promise is an object that represents the eventual completion or failure of an asynchronous operation.
+=================================================================================================================================================================
+REACT
+=>our chrome browser wont understand the jsx so babel converst the jsx to normal vanila javascript code which our chrome browser will undersatnd
