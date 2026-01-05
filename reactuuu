@@ -8,7 +8,79 @@ state is used to tell react to watch this variable and if any changes then refle
 Hookes
 are funntction to use some react features in functional compoenents
 are the the functions that makes functional components work like class functions
-
+=================================================================================================
 useState hook
 is a function to add state in functional component
 whenever u want to use variable u can use useState hook
+======================================================================================================
+useEffect 
+What is useEffect?
+
+In simple words:
+useEffect is used to perform “side effects” in a React component.
+
+❓ What are side effects?
+Anything that is not directly UI rendering.
+
+Examples:
+Fetching data from an API
+Updating the browser title
+Setting a timer (setTimeout, setInterval)
+Subscribing/unsubscribing to something
+Accessing DOM
+Calling setState after render
+👉 Rendering = showing UI
+👉 Side effect = doing extra work after UI is shown
+
+🔹 Why does React need useEffect?
+
+React works like this:
+Component renders UI
+React updates the DOM
+Then side effects should run
+
+If React allowed side effects directly inside render:
+Infinite loops
+Unpredictable UI
+Performance issues
+
+So React says:
+“First render UI.
+Then I’ll give you useEffect to run side effects safely.”
+
+Every time state changes, React does this:
+Re-runs the entire component function
+Recalculates JSX
+Updates the DOM if needed
+Then runs useEffect 
+===================================================================================================
+cleanups with useefffect
+Whenever count changes, stop the old timer that knows the old count, and start a new timer that knows the new count.
+=============================================================================================
+useContext
+What is useContext? (In simple words)
+
+useContext is a React hook used to share data globally between components without passing props manually at every level.
+It solves the problem called props drilling.
+
+========================================================================================
+What are Props? 
+
+Props (properties) are how a parent component sends data to a child component.
+Think of props as:
+👉 function parameters, but for components.
+
+🔹 Basic Rule of Props (VERY IMPORTANT)
+Data flows from parent → child only
+(One-way data flow)
+Child ❌ cannot change props directly
+
+Complete Example (Simple & Clear)
+📁 App.jsx (Parent)
+function App() {
+  return <Student name="Meghana" branch="CSE" />;
+}
+
+📁 Student.jsx (Child)
+function Student({ name, branch }) {
+  return <p>{name} studies {branch}</p>;
