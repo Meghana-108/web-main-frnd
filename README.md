@@ -345,4 +345,7 @@ but we can shadow a var using let
 var a=20;
 {
 let a=20;
-}//this can be sone
+}//this can be gone
+
+=>after every render the useEffect runs...
+=>
