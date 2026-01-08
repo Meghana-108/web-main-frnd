@@ -89,12 +89,35 @@ function Student({ name, branch }) {
 useRef-
 =>create a mutable variable without causing rerender
 =>accesing the DOM element
+
+import React, { useRef } from 'react'
+const App = () => {
+
+  const inputEle=useRef();
+  
+  function handleInput(){
+      console.log(inputEle.current);
+      inputEle.current.style.width='300px';
+      inputEle.current.style.height='90px';
+      inputEle.current.focus();
+  }
+ return (
+    <>
+    <input type='text' ref={inputEle} />
+    <button onClick={handleInput}>click me</button>
+    </>
+  )
+}
+export default App
 ===============================================================================================
 useReducer
 =>it is used to mangae state in our react application
 =>it works like a state management tool
 =>state managemnt is used to manage  all states of application in a simple way
 =>always use this useRweducer hooks when u have a lot of states and methods to handle
+
+
+===============================
 
 🔁 React Render & Effect Flow (FULL PICTURE)
 
