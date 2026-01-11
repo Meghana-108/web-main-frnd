@@ -193,7 +193,133 @@ You use useLayoutEffect to prevent "Flickering."
 Imagine you want to measure the width of a div and move a button based on that width:
 With useEffect: The user sees the button in the wrong place for a split second, then it "jumps" to the right place.
 With useLayoutEffect: The user never sees the wrong position. React measures and moves the button before the screen ever flashes.
+
+ import React,{useEffect,useLayoutEffect,useRef, useReducer,useState}from 'react'
+  const initialState={count:0};
+  
+  function reducer(state,action)
+  {
+    switch(action.type){
+      case "INCREAMENT":
+        return {count:state.count+1};
+      case "DECREAMENT":
+        return {count:state.count-1};
+      default:
+        return state;
+    }
+
+  }
+  const App = () => {
+    const [toggle,setToggle]=useState(false);
+const textRef=useRef();
+  useLayoutEffect(()=>{
+    if(textRef.current!=null)
+    {
+      const dimension=textRef.current.getBoundingClientRect();
+      textRef.current.style.paddingTop=`${dimension.height}px`
+      console.log("meowmewo");
+    }
+  },[toggle])
+
+    useLayoutEffect(()=>{
+    console.log("uselayouteffect")
+  },[toggle])
+  
+     useEffect(()=>{
+    console.log("usefct")
+  },[toggle])
+  const [state,dispatch]=useReducer(reducer,initialState);
+    return (
+      <>
+      <h1>{state.count}</h1>
+      <div>hello react world</div>
+      <button onClick={()=>setToggle(!toggle)}>toggle</button>
+      <button onClick={()=>dispatch({type:"INCREAMENT"})}>increase</button>
+     
+      <button onClick={()=>dispatch({type:"DECREAMENT"})}>decrease</button>
+     {toggle&&<h4 ref={textRef}>code bless you</h4>}
+     
+      </>
+    )
+  }
+
+  export default App;
+
+
 ==============================================================================================================
+USEMEMO 
+In React, "Memo" stands for Memoization, which basically means "remembering" a value so you don't have to calculate it again.
+
+1. The Problem: Expensive Calculations
+Imagine your App function runs every time you click "Toggle." If you have a piece 
+of code that takes along time to run (like sorting a list of 10,000 items),React will 
+run that slow code every single time you toggle, even if the list hasn't changed! This
+makes your app laggy.
+2. The Solution: useMemo
+useMemo tells React: "Only run this math logic if a specific variable has changed.
+Otherwise, just give me the answer you remembered from last time."
+
+
+useMemo vs useEffect
+This is where people get confused. Here is the simple rule:
+useEffect: Use this when you want to DO something (like change the DOM, log to console, or fetch data). It doesn't return a value to your component.
+useMemo: Use this when you want to GET a value. It returns the result of the function directly to a variable.
+================================================================================================================
+USECALLBACK
+useMemo vs useCallback
+This is the most common confusion. Here is the simple distinction:
+useMemo: Remembers the result of a function (a number, a string, an object).
+useCallback: Remembers the function itself.
+========================================================================================================
+CUSTOMHOOKS
+
+A Custom Hook is simply a JavaScript function whose name starts with "use" and that can call other Hooks. 
+It allows you to extract component logic into reusable functions so you don’t have to copy-paste the same code in multiple places.
+
+import React from 'react'
+import useFetch from './costomHook/useFetch'
+
+const App = () => {
+const data=useFetch('https://jsonplaceholder.typicode.com/users')
+  return (
+    <>
+      {data.map((res)=>{
+      return(
+        <h1 key={res.id}>
+          {res.id}.{res.name}
+        </h1>
+      )
+    })}</>
+  
+  )
+}
+
+export default App
+----------------------------------------------------------
+costomhook/useFetch
+import React,{useEffect,useState} from 'react'
+
+const useFetch = (url) => {
+      const [response,setResponse]=useState([]);
+      useEffect(()=>{
+        fetch(url)
+        .then((res)=>res.json())
+        .then((data)=>setResponse(data))
+      },[])
+  return response;
+}
+
+export default useFetch
+
+
+
+
+
+
+
+
+
+======================================================================================================
 REACT BASIC STRUCTURE RULES
 
 1. The "Basics" Rule: Outside vs. Inside
